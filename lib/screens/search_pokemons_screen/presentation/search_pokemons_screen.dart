@@ -13,6 +13,7 @@ class _SearchPokemonsScreenState extends State<SearchPokemonsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.grey.shade200,
         title: const Text('Search Pokemons'),
         centerTitle: true,
       ),

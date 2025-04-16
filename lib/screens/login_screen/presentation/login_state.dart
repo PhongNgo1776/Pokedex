@@ -1,12 +1,9 @@
 import 'package:equatable/equatable.dart';
-import 'package:phongngo.pokedex/screens/login_screen/form_submission_status.dart';
+import 'package:phongngo.pokedex/screens/login_screen/presentation/form_submission_status.dart';
 
 class LoginState extends Equatable {
   final String username;
-  bool get isValidUsername => username.length > 3;
-
   final String password;
-  bool get isValidPassword => password.length > 6;
 
   final FormSubmissionStatus formStatus;
 

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:phongngo.pokedex/core/authentication/presentation/authentication_bloc.dart';
 import 'package:phongngo.pokedex/route_paths.dart';
-import 'package:phongngo.pokedex/screens/login_screen/form_submission_status.dart';
-import 'package:phongngo.pokedex/screens/login_screen/login_bloc.dart';
-import 'package:phongngo.pokedex/screens/login_screen/login_state.dart';
-import 'package:phongngo.pokedex/screens/login_screen/widgets/login_button.dart';
-import 'package:phongngo.pokedex/screens/login_screen/widgets/password_field.dart';
-import 'package:phongngo.pokedex/screens/login_screen/widgets/user_name_field.dart';
+import 'package:phongngo.pokedex/screens/login_screen/presentation/form_submission_status.dart';
+import 'package:phongngo.pokedex/screens/login_screen/presentation/login_state.dart';
+import 'package:phongngo.pokedex/screens/login_screen/presentation/widgets/login_button.dart';
+import 'package:phongngo.pokedex/screens/login_screen/presentation/widgets/password_field.dart';
+import 'package:phongngo.pokedex/screens/login_screen/presentation/widgets/user_name_field.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -17,7 +17,7 @@ class LoginScreen extends StatelessWidget {
     final _formKey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
-      body: BlocListener<LoginBloc, LoginState>(
+      body: BlocListener<AuthenticationBloc, LoginState>(
         listenWhen: (previous, current) =>
             previous.formStatus != current.formStatus,
         listener: (context, state) {
@@ -37,8 +37,8 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const UsernameField(),
-                  const PasswordField(),
+                  UsernameField(formKey: _formKey),
+                  PasswordField(formKey: _formKey),
                   const SizedBox(height: 15),
                   LoginButton(formKey: _formKey),
                 ],

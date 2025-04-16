@@ -37,6 +37,7 @@ dependencies:
   dio: ^5.8.0+1
   reactive_forms: ^17.0.1
   fpdart: ^1.1.1
+  pull_down_button: ^0.10.2
 
 dev_dependencies:
   flutter_test:

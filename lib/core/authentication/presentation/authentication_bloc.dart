@@ -1,12 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:phongngo.pokedex/screens/login_screen/form_submission_status.dart';
-import 'package:phongngo.pokedex/screens/login_screen/login_event.dart';
-import 'package:phongngo.pokedex/screens/login_screen/login_state.dart';
+import 'package:phongngo.pokedex/screens/login_screen/domain/login_use_case.dart';
+import 'package:phongngo.pokedex/screens/login_screen/presentation/form_submission_status.dart';
+import 'package:phongngo.pokedex/screens/login_screen/presentation/login_event.dart';
+import 'package:phongngo.pokedex/screens/login_screen/presentation/login_state.dart';
 
-class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final String? authRepo;
+class AuthenticationBloc extends Bloc<LoginEvent, LoginState> {
+  final LoginUseCase _loginUseCase;
 
-  LoginBloc({this.authRepo}) : super(const LoginState()) {
+  AuthenticationBloc({required LoginUseCase loginUseCase})
+      : _loginUseCase = loginUseCase,
+        super(const LoginState()) {
     on<LoginEvent>((event, emit) async {
       await mapEventToState(event, emit);
     });
@@ -26,7 +29,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(state.copyWith(formStatus: FormSubmitting()));
 
       try {
-        // await authRepo?.login();
+        await _loginUseCase.execute(
+          userName: state.username,
+          password: state.password,
+        );
+
         emit(state.copyWith(formStatus: SubmissionSuccess()));
       } catch (e) {
         emit(state.copyWith(formStatus: SubmissionFailed(e)));

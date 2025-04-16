@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phongngo.pokedex/helpers/helpers_.dart';
 import 'package:phongngo.pokedex/route_paths.dart';
+import 'package:phongngo.pokedex/screens/home_screen/widgets/avatar_button.dart';
+import 'package:phongngo.pokedex/screens/home_screen/widgets/home_button.dart';
+import 'package:phongngo.pokedex/themes/spacings.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -14,6 +17,7 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          backgroundColor: Colors.grey.shade200,
           leading: IconButton(
             icon: Icon(
               Icons.close,
@@ -23,30 +27,25 @@ class HomeScreen extends StatelessWidget {
             onPressed: () => Helpers.onWillPop(context),
           ),
           centerTitle: true,
-          title: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[]),
+          title: Text('Home screen'),
           iconTheme: IconThemeData(color: Colors.yellowAccent),
+          actions: [AvatarButton(), horizontalSpaceBase],
         ),
         body: Center(
-          child: TextButton(
-            child: Text(
-              'Search Pokemons',
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              verticalSpaceL,
+              HomeButton(
+                title: 'Search Pokemons',
+                onPressed: () => context.go(RoutePaths.searchPokemons),
               ),
-            ),
-            onPressed: () => context.go(
-              RoutePaths.searchPokemons,
-            ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue,
-              elevation: 1,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+              verticalSpaceBase,
+              HomeButton(
+                title: 'My Pokemons',
+                onPressed: () => context.go(RoutePaths.myPokemons),
               ),
-            ),
+            ],
           ),
         ),
       ),
