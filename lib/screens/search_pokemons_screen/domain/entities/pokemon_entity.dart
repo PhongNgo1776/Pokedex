@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons/data/pokemon_model.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/pokemon_model.dart';
 
 class PokemonEntity implements Equatable {
   final String id;

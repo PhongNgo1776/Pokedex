@@ -1,5 +1,5 @@
-import 'package:phongngo.pokedex/screens/search_pokemons/domain/entities/pokemon_entity.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons/domain/i_pokemons_repository.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/entities/pokemon_entity.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/i_pokemons_repository.dart';
 
 class PokemonsUseCase {
   final IPokemonsRepository _pokemonsRepository;

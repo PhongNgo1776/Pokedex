@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -32,13 +31,9 @@ class _SplashScreenState extends State<SplashScreen> {
         color: Colors.white,
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Center(
-            child: Shimmer.fromColors(
-              baseColor: Colors.purple.withValues(alpha: 0.8),
-              highlightColor: Colors.black,
-              child: Text(
-                'Pokedex',
-                textAlign: TextAlign.center,
-              ),
+            child: Text(
+              'Pokedex',
+              textAlign: TextAlign.center,
             ),
           ),
         ]),

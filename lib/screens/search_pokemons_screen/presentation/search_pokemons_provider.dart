@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons/domain/search_pokemons_use_case.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons/presentation/search_pokemons_events.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons/presentation/search_pokemons_state.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/search_pokemons_use_case.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/search_pokemons_events.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/search_pokemons_state.dart';
 
 class SearchPokemonsBloc
     extends Bloc<SearchPokemonsScreenEvent, SearchPokemonsState> {

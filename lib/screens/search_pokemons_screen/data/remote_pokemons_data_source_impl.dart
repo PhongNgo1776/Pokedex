@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:phongngo.pokedex/constants/network_constants.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons/data/i_remote_search_pokemons_data_source.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons/data/pokemon_model.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/i_remote_search_pokemons_data_source.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/pokemon_model.dart';
 
 class RemotePokemonsDataSourceImpl implements IRemotePokemonsDataSource {
   final Dio dio;

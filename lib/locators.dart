@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:phongngo.pokedex/constants/network_constants.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons/data/i_remote_search_pokemons_data_source.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons/data/pokemons_repository_impl.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons/data/remote_pokemons_data_source_impl.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons/domain/i_pokemons_repository.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons/domain/search_pokemons_use_case.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/i_remote_search_pokemons_data_source.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/pokemons_repository_impl.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/remote_pokemons_data_source_impl.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/i_pokemons_repository.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/search_pokemons_use_case.dart';
 
 class Locators {
   static void initialize() {

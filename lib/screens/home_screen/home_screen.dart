@@ -1,25 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phongngo.pokedex/helpers/helpers_.dart';
-import 'package:phongngo.pokedex/routes.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:phongngo.pokedex/route_paths.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -40,15 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
           centerTitle: true,
           title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Shimmer.fromColors(
-                  baseColor: Colors.orange,
-                  highlightColor: Colors.pinkAccent,
-                  child: Text(
-                    'Pokedex',
-                  ),
-                ),
-              ]),
+              children: <Widget>[]),
           iconTheme: IconThemeData(color: Colors.yellowAccent),
         ),
         body: Center(
@@ -57,15 +34,15 @@ class _HomeScreenState extends State<HomeScreen> {
               'Search Pokemons',
               style: TextStyle(
                 fontSize: 20,
-                color: Colors.black,
+                color: Colors.white,
               ),
             ),
             onPressed: () => context.go(
-              Routes.searchPokemons,
+              RoutePaths.searchPokemons,
             ),
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.grey,
-              padding: EdgeInsets.all(20),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue,
+              elevation: 1,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
