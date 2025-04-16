@@ -11,7 +11,7 @@ class UsernameField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticationBloc, LoginState>(
+    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (context, state) {
         return TextFormField(
           key: const Key('usernameField'),

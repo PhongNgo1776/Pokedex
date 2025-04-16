@@ -4,18 +4,21 @@ import 'package:phongngo.pokedex/screens/login_screen/presentation/form_submissi
 import 'package:phongngo.pokedex/screens/login_screen/presentation/login_event.dart';
 import 'package:phongngo.pokedex/screens/login_screen/presentation/login_state.dart';
 
-class AuthenticationBloc extends Bloc<LoginEvent, LoginState> {
+class AuthenticationBloc
+    extends Bloc<AuthenticationEvent, AuthenticationState> {
   final LoginUseCase _loginUseCase;
 
   AuthenticationBloc({required LoginUseCase loginUseCase})
       : _loginUseCase = loginUseCase,
-        super(const LoginState()) {
-    on<LoginEvent>((event, emit) async {
-      await mapEventToState(event, emit);
+        super(const AuthenticationState()) {
+    on<AuthenticationEvent>((event, emit) async {
+      await _mapLoginEventToState(event, emit);
     });
+    on<LogoutEvent>(_logout);
   }
 
-  Future mapEventToState(LoginEvent event, Emitter<LoginState> emit) async {
+  Future _mapLoginEventToState(
+      AuthenticationEvent event, Emitter<AuthenticationState> emit) async {
     // Username updated
     if (event is LoginUsernameChanged) {
       emit(state.copyWith(username: event.username));
@@ -39,5 +42,12 @@ class AuthenticationBloc extends Bloc<LoginEvent, LoginState> {
         emit(state.copyWith(formStatus: SubmissionFailed(e)));
       }
     }
+  }
+
+  void _logout(
+    LogoutEvent event,
+    Emitter<AuthenticationState> emit,
+  ) {
+    emit(state.copyWith(formStatus: InitialFormStatus()));
   }
 }

@@ -17,7 +17,7 @@ class LoginScreen extends StatelessWidget {
     final _formKey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
-      body: BlocListener<AuthenticationBloc, LoginState>(
+      body: BlocListener<AuthenticationBloc, AuthenticationState>(
         listenWhen: (previous, current) =>
             previous.formStatus != current.formStatus,
         listener: (context, state) {

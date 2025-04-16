@@ -12,7 +12,7 @@ class LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticationBloc, LoginState>(
+    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (context, state) {
         return state.formStatus is FormSubmitting
             ? const Center(child: CircularProgressIndicator())

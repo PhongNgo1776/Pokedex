@@ -11,12 +11,12 @@ class PasswordField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthenticationBloc, LoginState>(
+    return BlocListener<AuthenticationBloc, AuthenticationState>(
       listenWhen: (previous, current) => previous.password != current.password,
       listener: (context, state) {
         Future(() => formKey.currentState?.validate());
       },
-      child: BlocBuilder<AuthenticationBloc, LoginState>(
+      child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
         return TextFormField(
           obscureText: true,
