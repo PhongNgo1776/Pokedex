@@ -38,10 +38,13 @@ dependencies:
   reactive_forms: ^17.0.1
   fpdart: ^1.1.1
   pull_down_button: ^0.10.2
+  realm: ^20.0.1
+  json_annotation: ^4.9.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  json_serializable: ^6.9.0
 
 flutter:
   uses-material-design: true

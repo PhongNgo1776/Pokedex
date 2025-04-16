@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:phongngo.pokedex/core/authentication/presentation/authentication_bloc.dart';
+import 'package:phongngo.pokedex/screens/login_screen/presentation/login_bloc.dart';
 import 'package:phongngo.pokedex/screens/login_screen/presentation/login_event.dart';
 import 'package:phongngo.pokedex/screens/login_screen/presentation/login_helper.dart';
 import 'package:phongngo.pokedex/screens/login_screen/presentation/login_state.dart';
@@ -11,7 +11,7 @@ class UsernameField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+    return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
         return TextFormField(
           key: const Key('usernameField'),
@@ -24,7 +24,7 @@ class UsernameField extends StatelessWidget {
               : 'Username is too short',
           onChanged: (value) {
             formKey.currentState?.validate();
-            context.read<AuthenticationBloc>().add(
+            context.read<LoginBloc>().add(
                   LoginUsernameChanged(username: value),
                 );
           },

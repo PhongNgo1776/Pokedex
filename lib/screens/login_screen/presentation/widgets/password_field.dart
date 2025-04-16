@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:phongngo.pokedex/core/authentication/presentation/authentication_bloc.dart';
+import 'package:phongngo.pokedex/screens/login_screen/presentation/login_bloc.dart';
 import 'package:phongngo.pokedex/screens/login_screen/presentation/login_event.dart';
 import 'package:phongngo.pokedex/screens/login_screen/presentation/login_helper.dart';
 import 'package:phongngo.pokedex/screens/login_screen/presentation/login_state.dart';
@@ -11,13 +11,12 @@ class PasswordField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthenticationBloc, AuthenticationState>(
+    return BlocListener<LoginBloc, LoginState>(
       listenWhen: (previous, current) => previous.password != current.password,
       listener: (context, state) {
         Future(() => formKey.currentState?.validate());
       },
-      child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-          builder: (context, state) {
+      child: BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
         return TextFormField(
           obscureText: true,
           decoration: const InputDecoration(
@@ -27,7 +26,7 @@ class PasswordField extends StatelessWidget {
           validator: (value) => LoginHelper.isValidPassword(value)
               ? null
               : 'Password is too short',
-          onChanged: (value) => context.read<AuthenticationBloc>().add(
+          onChanged: (value) => context.read<LoginBloc>().add(
                 LoginPasswordChanged(password: value),
               ),
         );

@@ -4,5 +4,6 @@ import 'package:phongngo.pokedex/core/authentication/domain/entities/user_entity
 
 abstract interface class IAuthenticationRepository {
   Future<Either<String, UserEntity>> login(LoginEntity loginEntity);
+  UserEntity? getUser();
   Future<bool> logOut();
 }

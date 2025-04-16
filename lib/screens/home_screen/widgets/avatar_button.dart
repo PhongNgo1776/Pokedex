@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phongngo.pokedex/core/authentication/presentation/authentication_bloc.dart';
+import 'package:phongngo.pokedex/core/authentication/presentation/authentication_event.dart';
 import 'package:phongngo.pokedex/route_paths.dart';
-import 'package:phongngo.pokedex/screens/login_screen/presentation/login_event.dart';
 import 'package:phongngo.pokedex/themes/border_radiuses.dart';
 import 'package:phongngo.pokedex/themes/offsets.dart';
 import 'package:pull_down_button/pull_down_button.dart';
@@ -15,7 +15,7 @@ class AvatarButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userName = context.read<AuthenticationBloc>().state.username;
+    final userName = context.read<AuthenticationBloc>().state.user?.name ?? '';
     final firstLetter = userName.isNotEmpty ? userName[0].toUpperCase() : '';
     return PullDownButton(
       itemBuilder: (context) => [

@@ -1,53 +1,33 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:phongngo.pokedex/screens/login_screen/domain/login_use_case.dart';
-import 'package:phongngo.pokedex/screens/login_screen/presentation/form_submission_status.dart';
-import 'package:phongngo.pokedex/screens/login_screen/presentation/login_event.dart';
-import 'package:phongngo.pokedex/screens/login_screen/presentation/login_state.dart';
+import 'package:phongngo.pokedex/core/authentication/domain/load_user_use_case.dart';
+import 'package:phongngo.pokedex/core/authentication/domain/logout_use_case.dart';
+import 'package:phongngo.pokedex/core/authentication/presentation/authentication_event.dart';
+import 'package:phongngo.pokedex/core/authentication/presentation/authentication_state.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  final LoginUseCase _loginUseCase;
+  final LogOutUseCase _logOutUseCase;
 
-  AuthenticationBloc({required LoginUseCase loginUseCase})
-      : _loginUseCase = loginUseCase,
-        super(const AuthenticationState()) {
-    on<AuthenticationEvent>((event, emit) async {
-      await _mapLoginEventToState(event, emit);
-    });
+  AuthenticationBloc(
+      {required LoadUserUseCase loadUserUseCase,
+      required LogOutUseCase logOutUseCase})
+      : _logOutUseCase = logOutUseCase,
+        super(AuthenticationState(user: loadUserUseCase.execute())) {
     on<LogoutEvent>(_logout);
+    on<AuthenticationLoggedIn>(_loggedIn);
   }
-
-  Future _mapLoginEventToState(
-      AuthenticationEvent event, Emitter<AuthenticationState> emit) async {
-    // Username updated
-    if (event is LoginUsernameChanged) {
-      emit(state.copyWith(username: event.username));
-
-      // Password updated
-    } else if (event is LoginPasswordChanged) {
-      emit(state.copyWith(password: event.password));
-
-      // Form submitted
-    } else if (event is LoginSubmitted) {
-      emit(state.copyWith(formStatus: FormSubmitting()));
-
-      try {
-        await _loginUseCase.execute(
-          userName: state.username,
-          password: state.password,
-        );
-
-        emit(state.copyWith(formStatus: SubmissionSuccess()));
-      } catch (e) {
-        emit(state.copyWith(formStatus: SubmissionFailed(e)));
-      }
-    }
-  }
-
-  void _logout(
-    LogoutEvent event,
+  void _loggedIn(
+    AuthenticationLoggedIn event,
     Emitter<AuthenticationState> emit,
   ) {
-    emit(state.copyWith(formStatus: InitialFormStatus()));
+    emit(state.copyWith(user: event.userEntity));
+  }
+
+  Future<void> _logout(
+    LogoutEvent event,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    await _logOutUseCase.execute();
+    emit(state.copyWith(user: null));
   }
 }

@@ -1,4 +1,4 @@
-import 'package:phongngo.pokedex/core/authentication/data/user_model.dart';
+import 'package:phongngo.pokedex/core/authentication/data/models/user_model.dart';
 
 class UserEntity {
   final String id;
