@@ -6,9 +6,7 @@ import 'package:phongngo.pokedex/core/authentication/domain/entities/login_entit
 
 class RemoteAuthenticationDataSourceImpl
     implements IRemoteAuthenticationDatasource {
-  final Dio _dio;
-
-  RemoteAuthenticationDataSourceImpl({required Dio dio}) : _dio = dio;
+  RemoteAuthenticationDataSourceImpl();
 
   @override
   Future<Either<String, UserModel>> login(LoginEntity loginEntity) async {

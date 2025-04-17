@@ -43,7 +43,7 @@ class Locators {
 
     // Registering authentication dependencies
     locator.registerSingleton<IRemoteAuthenticationDatasource>(
-        RemoteAuthenticationDataSourceImpl(dio: locator<Dio>()));
+        RemoteAuthenticationDataSourceImpl());
     locator.registerSingleton<ILocalAuthenticationDatasource>(
         LocalAuthenticationLocalDatasourceImpl(realmDB: locator<RealmDB>()));
     locator.registerSingleton<IAuthenticationRepository>(

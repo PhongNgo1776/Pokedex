@@ -1,12 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phongngo.pokedex/core/pokemons/domain/delete_pokemon_use_case.dart';
-import 'package:phongngo.pokedex/core/pokemons/domain/entities/pokemon_entity.dart';
 import 'package:phongngo.pokedex/core/pokemons/domain/save_pokemon_use_case.dart';
 import 'package:phongngo.pokedex/core/pokemons/presentation/abstract_pokemon_bloc.dart';
 import 'package:phongngo.pokedex/core/pokemons/presentation/delete_pokemon_mixin.dart';
 import 'package:phongngo.pokedex/core/pokemons/presentation/save_pokemon_mixin.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/get_random_pokemon_use_case.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/search_pokemons_use_case.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/cached_random_pokemons.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/search_pokemons_event.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/search_pokemons_state.dart';
 import 'package:rxdart/rxdart.dart';
@@ -18,8 +18,6 @@ class SearchPokemonsBloc extends AbstractPokemonBloc<SearchPokemonState>
   final SearchPokemonUseCase _searchPokemonsUseCase;
   final GetRandomPokemonsUseCase _getRandomPokemonsUseCase;
 
-  static List<PokemonEntity> latestRandomPokemons = [];
-
   SearchPokemonsBloc(
       {required SearchPokemonUseCase searchPokemonsUseCase,
       required GetRandomPokemonsUseCase getRandomPokemonsUseCase,
@@ -27,7 +25,8 @@ class SearchPokemonsBloc extends AbstractPokemonBloc<SearchPokemonState>
       required DeletePokemonUseCase deletePokemonUseCase})
       : _searchPokemonsUseCase = searchPokemonsUseCase,
         _getRandomPokemonsUseCase = getRandomPokemonsUseCase,
-        super(RandomPokemonsLoaded(pokedex: latestRandomPokemons)) {
+        super(RandomPokemonsLoaded(
+            pokedex: CachedRandomPokemons.latestRandomPokemons)) {
     on<SearchPokemonsEvent>(_searchPokemons,
         transformer: (events, mapper) =>
             events.debounceTime(Duration(milliseconds: 300)).switchMap(mapper));
@@ -64,7 +63,7 @@ class SearchPokemonsBloc extends AbstractPokemonBloc<SearchPokemonState>
             : pokemon)
         .toList();
 
-    latestRandomPokemons = newPokedex;
+    CachedRandomPokemons.latestRandomPokemons = newPokedex;
     emit(RandomPokemonsLoaded(pokedex: newPokedex));
   }
 
@@ -72,7 +71,7 @@ class SearchPokemonsBloc extends AbstractPokemonBloc<SearchPokemonState>
       GetRandomPokemonsEvent event, Emitter<SearchPokemonState> emit) async {
     emit(SearchPokemonLoading());
     await _getRandomPokemonsUseCase.execute().then((value) {
-      latestRandomPokemons = value;
+      CachedRandomPokemons.latestRandomPokemons = value;
       emit(RandomPokemonsLoaded(pokedex: value));
     }).catchError((error) {
       emit(SearchPokemonError(error: error.toString()));

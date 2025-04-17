@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:phongngo.pokedex/constants/border_radiuses.dart';
 import 'package:phongngo.pokedex/constants/image_sizes.dart';
@@ -60,8 +61,9 @@ class PokemonCard extends StatelessWidget {
             ),
             Text(
               pokemon.effectEntries
-                  .firstWhere((entry) => entry.language?.name == 'en')
-                  .shortEffect,
+                      .firstWhereOrNull((entry) => entry.language?.name == 'en')
+                      ?.shortEffect ??
+                  '',
             ),
           ],
         ),

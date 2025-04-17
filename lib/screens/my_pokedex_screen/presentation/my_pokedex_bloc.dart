@@ -5,6 +5,7 @@ import 'package:phongngo.pokedex/screens/my_pokedex_screen/domain/get_my_pokedex
 import 'package:phongngo.pokedex/screens/my_pokedex_screen/domain/update_my_pokedex_use_case.dart';
 import 'package:phongngo.pokedex/screens/my_pokedex_screen/presentation/my_pokedex_event.dart';
 import 'package:phongngo.pokedex/screens/my_pokedex_screen/presentation/my_pokedex_state.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/cached_random_pokemons.dart';
 
 class MyPokedexBloc extends AbstractPokemonBloc<MyPokedexState>
     with DeletePokemonMixin<MyPokedexState> {
@@ -23,6 +24,15 @@ class MyPokedexBloc extends AbstractPokemonBloc<MyPokedexState>
   Future<void> _deletePokemon(
       DeletePokemonEvent event, Emitter<MyPokedexState> emit) async {
     deletePokemonUseCase.execute(event.pokemon.id);
+    final index = CachedRandomPokemons.latestRandomPokemons
+        .indexWhere((pokemon) => pokemon.id == event.pokemon.id);
+
+    if (index != -1) {
+      CachedRandomPokemons.latestRandomPokemons.removeAt(index);
+      CachedRandomPokemons.latestRandomPokemons
+          .insert(index, event.pokemon.copyWith(isFavorite: false));
+    }
+
     emit(state.copyWith(
         pokedex: state.pokedex
           ..removeWhere((pokemon) => pokemon.id == event.pokemon.id)));

@@ -4,6 +4,6 @@ import 'package:phongngo.pokedex/core/pokemons/presentation/abstract_pokemon_blo
 import 'package:phongngo.pokedex/core/pokemons/presentation/pokemon_state.dart';
 
 mixin DeletePokemonMixin<S extends PokemonState> on AbstractPokemonBloc<S> {
-  final DeletePokemonUseCase deletePokemonUseCase =
+   DeletePokemonUseCase deletePokemonUseCase =
       GetIt.I<DeletePokemonUseCase>();
 }
