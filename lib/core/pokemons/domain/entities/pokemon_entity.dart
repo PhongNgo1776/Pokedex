@@ -34,6 +34,24 @@ class PokemonEntity implements Equatable {
     );
   }
 
+  PokemonEntity copyWith({
+    int? id,
+    String? name,
+    String? imageUrl,
+    PokemonGenerationEntity? generation,
+    List<PokemonEffectEntryEntity>? effectEntries,
+    bool? isFavorite,
+  }) {
+    return PokemonEntity(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      imageUrl: imageUrl ?? this.imageUrl,
+      generation: generation ?? this.generation,
+      effectEntries: effectEntries ?? this.effectEntries,
+      isFavorite: isFavorite ?? this.isFavorite,
+    );
+  }
+
   static PokemonModel toModel(PokemonEntity entity) {
     return PokemonModel(
       entity.id,

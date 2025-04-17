@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phongngo.pokedex/constants/offsets.dart';
 import 'package:phongngo.pokedex/constants/spacings.dart';
-import 'package:phongngo.pokedex/core/pokemons/presentation/pokemon_event.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/search_pokemons_bloc.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/search_pokemons_event.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/search_pokemons_state.dart';
@@ -54,13 +53,18 @@ class _SearchPokemonsScreenState extends State<SearchPokemonsScreen> {
                     } else if (state is SearchPokemonLoaded) {
                       return PokemonCard(
                         pokemon: state.pokemon,
-                        onFavoriteToggle: (isFavorite) =>
-                            context.read<SearchPokemonsBloc>().add(
-                                  ToggleFavoriteEvent(
-                                    pokemon: state.pokemon,
-                                    isFavorite: isFavorite,
+                        actionButton: IconButton(
+                          icon: Icon(state.pokemon.isFavorite
+                              ? Icons.favorite
+                              : Icons.favorite_border),
+                          onPressed: () =>
+                              context.read<SearchPokemonsBloc>().add(
+                                    ToggleFavoriteEvent(
+                                      pokemon: state.pokemon,
+                                      isFavorite: !state.pokemon.isFavorite,
+                                    ),
                                   ),
-                                ),
+                        ),
                       );
                     } else if (state is RandomPokemonsLoaded) {
                       return Scrollbar(
@@ -69,13 +73,19 @@ class _SearchPokemonsScreenState extends State<SearchPokemonsScreen> {
                             itemBuilder: (_, index) => PokemonCard(
                                   key: ValueKey(state.pokedex[index].id),
                                   pokemon: state.pokedex[index],
-                                  onFavoriteToggle: (isFavorite) =>
-                                      context.read<SearchPokemonsBloc>().add(
-                                            ToggleFavoriteEvent(
-                                              pokemon: state.pokedex[index],
-                                              isFavorite: isFavorite,
+                                  actionButton: IconButton(
+                                    icon: Icon(state.pokedex[index].isFavorite
+                                        ? Icons.favorite
+                                        : Icons.favorite_border),
+                                    onPressed: () =>
+                                        context.read<SearchPokemonsBloc>().add(
+                                              ToggleFavoriteEvent(
+                                                pokemon: state.pokedex[index],
+                                                isFavorite: !state
+                                                    .pokedex[index].isFavorite,
+                                              ),
                                             ),
-                                          ),
+                                  ),
                                 ),
                             shrinkWrap: true,
                             itemCount: state.pokedex.length),

@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phongngo.pokedex/core/pokemons/presentation/abstract_pokemon_bloc.dart';
 import 'package:phongngo.pokedex/core/pokemons/presentation/delete_pokemon_mixin.dart';
-import 'package:phongngo.pokedex/core/pokemons/presentation/pokemon_event.dart';
 import 'package:phongngo.pokedex/screens/my_pokedex_screen/domain/get_my_pokedex_use_case.dart';
 import 'package:phongngo.pokedex/screens/my_pokedex_screen/domain/update_my_pokedex_use_case.dart';
 import 'package:phongngo.pokedex/screens/my_pokedex_screen/presentation/my_pokedex_event.dart';
@@ -17,18 +16,19 @@ class MyPokedexBloc extends AbstractPokemonBloc<MyPokedexState>
         super(MyPokedexState(
           pokedex: getMyPokedexUseCase.execute(),
         )) {
-    on<ToggleFavoriteEvent>(_handelFavoritePokemon);
-    on<ReOrderPokedexEvent>(_handleReOrderPokedex);
+    on<DeletePokemonEvent>(_deletePokemon);
+    on<ReOrderPokedexEvent>(_reOrderPokedex);
   }
 
-  Future<void> _handelFavoritePokemon(
-      ToggleFavoriteEvent event, Emitter<MyPokedexState> emit) async {
-    if (!event.isFavorite) {
-      deletePokemonUseCase.execute(event.pokemon.id);
-    }
+  Future<void> _deletePokemon(
+      DeletePokemonEvent event, Emitter<MyPokedexState> emit) async {
+    deletePokemonUseCase.execute(event.pokemon.id);
+    emit(state.copyWith(
+        pokedex: state.pokedex
+          ..removeWhere((pokemon) => pokemon.id == event.pokemon.id)));
   }
 
-  Future<void> _handleReOrderPokedex(
+  Future<void> _reOrderPokedex(
       ReOrderPokedexEvent event, Emitter<MyPokedexState> emit) async {
     final pokedex = state.pokedex;
     final pokemon = pokedex.removeAt(event.oldIndex);

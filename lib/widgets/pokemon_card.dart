@@ -7,11 +7,11 @@ import 'package:phongngo.pokedex/core/pokemons/domain/entities/pokemon_entity.da
 
 class PokemonCard extends StatelessWidget {
   final PokemonEntity pokemon;
-  final Function(bool isFavorite) onFavoriteToggle;
+  final Widget actionButton;
   const PokemonCard({
     super.key,
     required this.pokemon,
-    required this.onFavoriteToggle,
+    required this.actionButton,
   });
 
   @override
@@ -53,12 +53,7 @@ class PokemonCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                IconButton(
-                  icon: Icon(pokemon.isFavorite
-                      ? Icons.favorite
-                      : Icons.favorite_border),
-                  onPressed: () => onFavoriteToggle(!pokemon.isFavorite),
-                ),
+                actionButton
               ],
             ),
             Text(

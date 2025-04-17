@@ -3,7 +3,6 @@ import 'package:phongngo.pokedex/core/pokemons/domain/delete_pokemon_use_case.da
 import 'package:phongngo.pokedex/core/pokemons/domain/save_pokemon_use_case.dart';
 import 'package:phongngo.pokedex/core/pokemons/presentation/abstract_pokemon_bloc.dart';
 import 'package:phongngo.pokedex/core/pokemons/presentation/delete_pokemon_mixin.dart';
-import 'package:phongngo.pokedex/core/pokemons/presentation/pokemon_event.dart';
 import 'package:phongngo.pokedex/core/pokemons/presentation/save_pokemon_mixin.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/get_random_pokemon_use_case.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/search_pokemons_use_case.dart';
@@ -54,6 +53,15 @@ class SearchPokemonsBloc extends AbstractPokemonBloc<SearchPokemonState>
     } else {
       deletePokemonUseCase.execute(event.pokemon.id);
     }
+
+    final newPokedex = (state as RandomPokemonsLoaded)
+        .pokedex
+        .map((pokemon) => pokemon.id == event.pokemon.id
+            ? pokemon.copyWith(isFavorite: event.isFavorite)
+            : pokemon)
+        .toList();
+
+    emit(RandomPokemonsLoaded(pokedex: newPokedex));
   }
 
   Future<void> _getRandomPokemons(

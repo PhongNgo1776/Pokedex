@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phongngo.pokedex/constants/offsets.dart';
 import 'package:phongngo.pokedex/constants/spacings.dart';
-import 'package:phongngo.pokedex/core/pokemons/presentation/pokemon_event.dart';
 import 'package:phongngo.pokedex/screens/my_pokedex_screen/presentation/my_pokedex_bloc.dart';
 import 'package:phongngo.pokedex/screens/my_pokedex_screen/presentation/my_pokedex_event.dart';
 import 'package:phongngo.pokedex/screens/my_pokedex_screen/presentation/my_pokedex_state.dart';
@@ -37,13 +36,15 @@ class MyPokedexScreen extends StatelessWidget {
                               itemBuilder: (_, index) => PokemonCard(
                                 key: Key('$index'),
                                 pokemon: state.pokedex[index],
-                                onFavoriteToggle: (isFavorite) =>
-                                    context.read<MyPokedexBloc>().add(
-                                          ToggleFavoriteEvent(
-                                            pokemon: state.pokedex[index],
-                                            isFavorite: false,
+                                actionButton: IconButton(
+                                  icon: Icon(Icons.close),
+                                  onPressed: () =>
+                                      context.read<MyPokedexBloc>().add(
+                                            DeletePokemonEvent(
+                                              pokemon: state.pokedex[index],
+                                            ),
                                           ),
-                                        ),
+                                ),
                               ),
                               shrinkWrap: true,
                               itemCount: state.pokedex.length,

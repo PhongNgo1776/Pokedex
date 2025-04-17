@@ -1,3 +1,4 @@
+import 'package:phongngo.pokedex/core/pokemons/domain/entities/pokemon_entity.dart';
 import 'package:phongngo.pokedex/core/pokemons/presentation/pokemon_event.dart';
 
 abstract class MyPokedexScreenEvent extends PokemonEvent {
@@ -18,4 +19,15 @@ class ReOrderPokedexEvent extends MyPokedexScreenEvent {
 
   @override
   List<Object> get props => [oldIndex, newIndex];
+}
+
+class DeletePokemonEvent extends MyPokedexScreenEvent {
+  final PokemonEntity pokemon;
+
+  const DeletePokemonEvent({
+    required this.pokemon,
+  });
+
+  @override
+  List<Object> get props => [pokemon];
 }
