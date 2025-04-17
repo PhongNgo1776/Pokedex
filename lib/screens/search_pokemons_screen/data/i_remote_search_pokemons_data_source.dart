@@ -1,5 +1,5 @@
-import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/pokemon_model.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/models/pokemon_model.dart';
 
 abstract interface class IRemotePokemonsDataSource {
-  Future<List<PokemonModel>> searchPokemons({required String idOrName});
+  Future<PokemonModel?> searchPokemon({required String idOrName});
 }

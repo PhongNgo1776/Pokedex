@@ -5,10 +5,10 @@ import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/sea
 import 'package:rxdart/rxdart.dart';
 
 class SearchPokemonsBloc
-    extends Bloc<SearchPokemonsScreenEvent, SearchPokemonsState> {
+    extends Bloc<SearchPokemonsScreenEvent, SearchPokemonState> {
   SearchPokemonsBloc({required PokemonsUseCase searchPokemonsUseCase})
       : _searchPokemonsUseCase = searchPokemonsUseCase,
-        super(const SearchPokemonsState()) {
+        super(SearchPokemonInit()) {
     on<SearchPokemonsEvent>(_searchPokemons,
         transformer: (events, mapper) =>
             events.debounceTime(Duration(milliseconds: 300)).switchMap(mapper));
@@ -18,17 +18,19 @@ class SearchPokemonsBloc
   final PokemonsUseCase _searchPokemonsUseCase;
 
   Future<void> _searchPokemons(
-      SearchPokemonsEvent event, Emitter<SearchPokemonsState> emit) async {
-    emit(SearchPokemonsState(isLoading: true));
+      SearchPokemonsEvent event, Emitter<SearchPokemonState> emit) async {
+    emit(SearchPokemonLoading());
     await _searchPokemonsUseCase
         .execute(idOrName: event.idOrName)
         .then((value) {
-      emit(SearchPokemonsState(isLoading: false, pokemons: value));
+      emit(value != null
+          ? SearchPokemonLoaded(pokemon: value)
+          : SearchPokemonError(error: "Pokemon not found"));
     }).catchError((error) {
-      emit(SearchPokemonsState(isLoading: false, error: error.toString()));
+      emit(SearchPokemonError(error: error.toString()));
     });
   }
 
   Future<void> _getRandomPokemons(
-      GetRandomPokemonsEvent event, Emitter<SearchPokemonsState> emit) async {}
+      GetRandomPokemonsEvent event, Emitter<SearchPokemonState> emit) async {}
 }

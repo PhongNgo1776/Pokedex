@@ -10,15 +10,9 @@ class PokemonsRepositoryImpl implements IPokemonsRepository {
       : _remotePokemonsDataSource = remotePokemonsDataSource;
 
   @override
-  Future<List<PokemonEntity>> searchPokemons({required String idOrName}) async {
-    final response =
-        await _remotePokemonsDataSource.searchPokemons(idOrName: idOrName);
-    if (response.isNotEmpty) {
-      // Parse the response and convert it to a list of PokemonEntity
-      // For now, returning an empty list
-      return [];
-    } else {
-      throw Exception('Failed to load pokemons');
-    }
+  Future<PokemonEntity?> searchPokemon({required String idOrName}) async {
+    final model =
+        await _remotePokemonsDataSource.searchPokemon(idOrName: idOrName);
+    return model != null ? PokemonEntity.fromModel(model) : null;
   }
 }

@@ -6,7 +6,7 @@ class PokemonsUseCase {
 
   PokemonsUseCase({required IPokemonsRepository pokemonsRepository})
       : _pokemonsRepository = pokemonsRepository;
-  Future<List<PokemonEntity>> execute({required String idOrName}) async {
-    return await _pokemonsRepository.searchPokemons(idOrName: idOrName);
+  Future<PokemonEntity?> execute({required String idOrName}) async {
+    return await _pokemonsRepository.searchPokemon(idOrName: idOrName);
   }
 }

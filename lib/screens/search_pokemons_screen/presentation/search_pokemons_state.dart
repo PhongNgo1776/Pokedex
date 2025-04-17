@@ -1,35 +1,61 @@
 import 'package:equatable/equatable.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/entities/pokemon_entity.dart';
 
-class SearchPokemonsState implements Equatable {
-  final bool isLoading;
-  final List<PokemonEntity> pokemons;
-  final String? error;
+abstract class SearchPokemonState implements Equatable {}
 
-  const SearchPokemonsState({
-    this.isLoading = true,
-    this.pokemons = const [],
-    this.error,
-  });
+class SearchPokemonLoaded extends SearchPokemonState {
+  final PokemonEntity pokemon;
 
-  factory SearchPokemonsState.initial() {
-    return const SearchPokemonsState();
+  SearchPokemonLoaded({required this.pokemon});
+
+  SearchPokemonLoaded copyWith({
+    PokemonEntity? pokemon,
+  }) {
+    return SearchPokemonLoaded(
+      pokemon: pokemon ?? this.pokemon,
+    );
   }
 
-  SearchPokemonsState copyWith({
-    bool? isLoading,
-    List<PokemonEntity>? pokemons,
+  @override
+  List<Object?> get props => [pokemon];
+
+  @override
+  bool? get stringify => true;
+}
+
+class SearchPokemonInit extends SearchPokemonState {
+  @override
+  bool? get stringify => true;
+
+  @override
+  List<Object?> get props => [];
+}
+
+class SearchPokemonLoading extends SearchPokemonState {
+  @override
+  bool? get stringify => true;
+
+  @override
+  List<Object?> get props => [];
+}
+
+class SearchPokemonError extends SearchPokemonState {
+  final String error;
+
+  SearchPokemonError({
+    required this.error,
+  });
+
+  SearchPokemonError copyWith({
     String? error,
   }) {
-    return SearchPokemonsState(
-      isLoading: isLoading ?? this.isLoading,
-      pokemons: pokemons ?? this.pokemons,
+    return SearchPokemonError(
       error: error ?? this.error,
     );
   }
 
   @override
-  List<Object?> get props => [isLoading, pokemons, error];
+  List<Object?> get props => [error];
 
   @override
   bool? get stringify => true;

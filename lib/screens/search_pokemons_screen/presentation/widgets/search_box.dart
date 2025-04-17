@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:phongngo.pokedex/themes/border_radiuses.dart';
 import 'package:phongngo.pokedex/themes/offsets.dart';
 import 'package:phongngo.pokedex/themes/sizes.dart';
-import 'package:phongngo.pokedex/themes/spacings.dart';
 
 class SearchBox extends StatefulWidget {
   final TextEditingController? searchTextEditingController;
@@ -19,6 +18,7 @@ class SearchBox extends StatefulWidget {
 
 class _SearchBoxState extends State<SearchBox> {
   TextEditingController? _textEditingController;
+  String _searchText = '';
 
   @override
   void initState() {
@@ -26,40 +26,46 @@ class _SearchBoxState extends State<SearchBox> {
         widget.searchTextEditingController ?? TextEditingController();
 
     _textEditingController?.addListener(() {
-      widget.onSearch(_textEditingController?.text ?? '');
+      if (_textEditingController?.text != _searchText) {
+        _searchText = _textEditingController?.text ?? '';
+        widget.onSearch(_textEditingController?.text ?? '');
+      }
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: roundedXxl,
+      ),
       padding: horizontalInsetsBase.add(topInsetsBase),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
             child: Container(
-              padding: allInsets6,
-              height: l,
+              padding: bottomInsetsS,
+              height: 36,
               decoration: BoxDecoration(
                 borderRadius: roundedXxl,
               ),
               child: TextField(
                 controller: _textEditingController,
-                cursorHeight: m,
                 decoration: InputDecoration(
                   isDense: true,
+                  contentPadding: topInsetsXxs,
                   hintText: 'Enter id or name',
-                  contentPadding: const EdgeInsets.only(bottom: 2),
                   border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
                   prefixIconConstraints: const BoxConstraints(maxWidth: l),
                   prefixIcon: Padding(
                     padding: rightInsetsXs,
                     child: Icon(
                       Icons.search,
                       color: Colors.black,
+                      size: m,
                     ),
                   ),
                   suffixIconConstraints: const BoxConstraints(maxWidth: l),
@@ -67,28 +73,11 @@ class _SearchBoxState extends State<SearchBox> {
                     padding: allInsetsZero,
                     icon: const Icon(
                       Icons.close,
+                      size: m,
                     ),
                     onPressed: _textEditingController?.clear,
                   ),
                 ),
-              ),
-            ),
-          ),
-          ValueListenableBuilder(
-            valueListenable: _textEditingController!,
-            builder: (context, value, child) => Visibility(
-              visible: value.text.isNotEmpty,
-              child: Row(
-                children: [
-                  horizontalSpaceBase,
-                  TextButton(
-                      onPressed: () => _textEditingController?.clear(),
-                      child: Text('Cancel',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: s,
-                          ))),
-                ],
               ),
             ),
           ),
