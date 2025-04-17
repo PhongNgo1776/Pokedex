@@ -5,6 +5,7 @@ import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/sea
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/search_pokemons_state.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/widgets/pokemon_item.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/widgets/search_box.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/widgets/surprise_button.dart';
 import 'package:phongngo.pokedex/themes/offsets.dart';
 import 'package:phongngo.pokedex/themes/spacings.dart';
 
@@ -17,6 +18,7 @@ class SearchPokemonsScreen extends StatefulWidget {
 }
 
 class _SearchPokemonsScreenState extends State<SearchPokemonsScreen> {
+  final textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,26 +28,42 @@ class _SearchPokemonsScreenState extends State<SearchPokemonsScreen> {
         centerTitle: true,
       ),
       backgroundColor: Colors.grey.shade200,
-      body: Padding(
-        padding: allInsetsBase,
-        child: Column(
-          children: [
-            SearchBox(
-              onSearch: (searchText) {
-                context.read<SearchPokemonsBloc>().add(
-                      SearchPokemonsEvent(idOrName: searchText),
-                    );
-              },
-            ),
-            verticalSpaceBase,
-            Expanded(
-              child: SingleChildScrollView(
+      body: SafeArea(
+        child: Padding(
+          padding: verticalInsetsBase,
+          child: Column(
+            children: [
+              Padding(
+                padding: horizontalInsetsBase,
+                child: SearchBox(
+                  searchTextEditingController: textEditingController,
+                  onSearch: (searchText) {
+                    context.read<SearchPokemonsBloc>().add(
+                          SearchPokemonsEvent(idOrName: searchText),
+                        );
+                  },
+                ),
+              ),
+              verticalSpaceBase,
+              Expanded(
                 child: BlocBuilder<SearchPokemonsBloc, SearchPokemonState>(
                   builder: (context, state) {
                     if (state is SearchPokemonLoading) {
                       return const Center(child: CircularProgressIndicator());
                     } else if (state is SearchPokemonLoaded) {
                       return PokemonItem(pokemon: state.pokemon);
+                    } else if (state is RandomPokemonsLoaded) {
+                      return Scrollbar(
+                        child: ListView.builder(
+                            padding: horizontalInsetsBase,
+                            itemBuilder: (_, index) {
+                              return PokemonItem(
+                                pokemon: state.pokemons[index],
+                              );
+                            },
+                            shrinkWrap: true,
+                            itemCount: state.pokemons.length),
+                      );
                     } else if (state is SearchPokemonError) {
                       return Text(state.error,
                           style: const TextStyle(color: Colors.red));
@@ -54,10 +72,25 @@ class _SearchPokemonsScreenState extends State<SearchPokemonsScreen> {
                   },
                 ),
               ),
-            ),
-          ],
+              verticalSpaceBase,
+              SurpriseButton(
+                onPressed: () {
+                  textEditingController.clear();
+                  context
+                      .read<SearchPokemonsBloc>()
+                      .add(GetRandomPokemonsEvent());
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
   }
 }

@@ -23,6 +23,26 @@ class SearchPokemonLoaded extends SearchPokemonState {
   bool? get stringify => true;
 }
 
+class RandomPokemonsLoaded extends SearchPokemonState {
+  final List<PokemonEntity> pokemons;
+
+  RandomPokemonsLoaded({required this.pokemons});
+
+  RandomPokemonsLoaded copyWith({
+    List<PokemonEntity>? pokemons,
+  }) {
+    return RandomPokemonsLoaded(
+      pokemons: pokemons ?? this.pokemons,
+    );
+  }
+
+  @override
+  List<Object?> get props => [pokemons];
+
+  @override
+  bool? get stringify => true;
+}
+
 class SearchPokemonInit extends SearchPokemonState {
   @override
   bool? get stringify => true;

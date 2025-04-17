@@ -8,6 +8,7 @@ import 'package:phongngo.pokedex/screens/home_screen/home_screen.dart';
 import 'package:phongngo.pokedex/screens/login_screen/domain/login_use_case.dart';
 import 'package:phongngo.pokedex/screens/login_screen/presentation/login_bloc.dart';
 import 'package:phongngo.pokedex/screens/login_screen/presentation/login_screen.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/get_random_pokemon_use_case.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/search_pokemons_use_case.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/search_pokemons_bloc.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/search_pokemons_screen.dart';
@@ -31,7 +32,10 @@ final GoRouter router = GoRouter(
             builder: (BuildContext context, GoRouterState state) {
               return BlocProvider(
                   create: (context) => SearchPokemonsBloc(
-                      searchPokemonsUseCase: GetIt.instance<PokemonsUseCase>()),
+                      searchPokemonsUseCase:
+                          GetIt.instance<SearchPokemonUseCase>(),
+                      getRandomPokemonsUseCase:
+                          GetIt.instance<GetRandomPokemonsUseCase>()),
                   child: const SearchPokemonsScreen());
             },
           ),

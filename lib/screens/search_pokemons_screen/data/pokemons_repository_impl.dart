@@ -15,4 +15,13 @@ class PokemonsRepositoryImpl implements IPokemonsRepository {
         await _remotePokemonsDataSource.searchPokemon(idOrName: idOrName);
     return model != null ? PokemonEntity.fromModel(model) : null;
   }
+
+  @override
+  Future<List<PokemonEntity>> getRandomPokemons() async {
+    final models = await _remotePokemonsDataSource.getRandomPokemons();
+    final entities =
+        models.map((model) => PokemonEntity.fromModel(model)).toList();
+
+    return entities;
+  }
 }

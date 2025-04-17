@@ -8,12 +8,13 @@ import 'package:phongngo.pokedex/core/authentication/data/datasources/remote_aut
 import 'package:phongngo.pokedex/core/authentication/data/repositories/authentication_repository_impl.dart';
 import 'package:phongngo.pokedex/core/authentication/domain/i_authentication_repository.dart';
 import 'package:phongngo.pokedex/core/authentication/domain/load_user_use_case.dart';
-import 'package:phongngo.pokedex/screens/login_screen/domain/login_use_case.dart';
 import 'package:phongngo.pokedex/core/authentication/domain/logout_use_case.dart';
 import 'package:phongngo.pokedex/core/realm_db.dart';
+import 'package:phongngo.pokedex/screens/login_screen/domain/login_use_case.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/i_remote_search_pokemons_data_source.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/pokemons_repository_impl.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/remote_pokemons_data_source_impl.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/get_random_pokemon_use_case.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/i_pokemons_repository.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/search_pokemons_use_case.dart';
 
@@ -26,9 +27,9 @@ class Locators {
     locator.registerSingleton<Dio>(Dio(
       BaseOptions(
         baseUrl: baseUrl,
-        sendTimeout: Duration(seconds: 5),
-        connectTimeout: Duration(seconds: 5),
-        receiveTimeout: Duration(seconds: 3),
+        sendTimeout: Duration(seconds: 30),
+        connectTimeout: Duration(seconds: 30),
+        receiveTimeout: Duration(seconds: 30),
       ),
     ));
 
@@ -56,7 +57,9 @@ class Locators {
         () => RemotePokemonsDataSourceImpl(dio: locator<Dio>()));
     locator.registerLazySingleton<IPokemonsRepository>(
         () => PokemonsRepositoryImpl(remotePokemonsDataSource: locator()));
-    locator.registerLazySingleton<PokemonsUseCase>(
-        () => PokemonsUseCase(pokemonsRepository: locator()));
+    locator.registerLazySingleton<SearchPokemonUseCase>(
+        () => SearchPokemonUseCase(pokemonsRepository: locator()));
+    locator.registerLazySingleton<GetRandomPokemonsUseCase>(
+        () => GetRandomPokemonsUseCase(pokemonsRepository: locator()));
   }
 }

@@ -2,4 +2,5 @@ import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/entities/
 
 abstract interface class IPokemonsRepository {
   Future<PokemonEntity?> searchPokemon({required String idOrName});
+  Future<List<PokemonEntity>> getRandomPokemons();
 }

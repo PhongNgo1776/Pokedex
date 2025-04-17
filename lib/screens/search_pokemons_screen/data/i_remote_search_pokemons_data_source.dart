@@ -2,4 +2,5 @@ import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/models/poke
 
 abstract interface class IRemotePokemonsDataSource {
   Future<PokemonModel?> searchPokemon({required String idOrName});
+  Future<List<PokemonModel>> getRandomPokemons();
 }

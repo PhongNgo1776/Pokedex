@@ -22,22 +22,35 @@ class PokemonItem extends StatelessWidget {
       child: Padding(
         padding: allInsetsBase,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                Image.network(
-                  pokemon.imageUrl,
-                  width: imageSize,
-                  height: imageSize,
+                Expanded(
+                  child: Row(
+                    children: [
+                      Image.network(
+                        pokemon.imageUrl,
+                        width: imageSize,
+                        height: imageSize,
+                      ),
+                      horizontalSpaceXs,
+                      Flexible(
+                        child: Text(
+                          pokemon.name,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                      ),
+                      horizontalSpaceXxs,
+                      Text(
+                        pokemon.generation?.name ?? '',
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
                 ),
-                horizontalSpaceXs,
-                Text(
-                  pokemon.name,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                horizontalSpaceBase,
-                Text(pokemon.generation?.name ?? ''),
-                const Spacer(),
                 IconButton(
                   icon: const Icon(Icons.favorite),
                   onPressed: () {

@@ -1,12 +1,12 @@
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/entities/pokemon_entity.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/i_pokemons_repository.dart';
 
-class SearchPokemonUseCase {
+class GetRandomPokemonsUseCase {
   final IPokemonsRepository _pokemonsRepository;
 
-  SearchPokemonUseCase({required IPokemonsRepository pokemonsRepository})
+  GetRandomPokemonsUseCase({required IPokemonsRepository pokemonsRepository})
       : _pokemonsRepository = pokemonsRepository;
-  Future<PokemonEntity?> execute({required String idOrName}) async {
-    return await _pokemonsRepository.searchPokemon(idOrName: idOrName);
+  Future<List<PokemonEntity>> execute() async {
+    return await _pokemonsRepository.getRandomPokemons();
   }
 }
