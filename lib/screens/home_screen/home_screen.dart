@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phongngo.pokedex/constants/spacings.dart';
-import 'package:phongngo.pokedex/helpers/helpers_.dart';
+import 'package:phongngo.pokedex/helpers/helpers.dart';
 import 'package:phongngo.pokedex/route_paths.dart';
 import 'package:phongngo.pokedex/screens/home_screen/widgets/avatar_button.dart';
 import 'package:phongngo.pokedex/screens/home_screen/widgets/home_button.dart';
