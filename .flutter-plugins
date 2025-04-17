@@ -1,4 +1,7 @@
 # This is a generated file; do not edit or check into version control.
+path_provider=/Users/ltphong/.pub-cache/hosted/pub.dev/path_provider-2.1.5/
+path_provider_android=/Users/ltphong/.pub-cache/hosted/pub.dev/path_provider_android-2.2.16/
+path_provider_foundation=/Users/ltphong/.pub-cache/hosted/pub.dev/path_provider_foundation-2.4.1/
 path_provider_linux=/Users/ltphong/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.1/
 path_provider_windows=/Users/ltphong/.pub-cache/hosted/pub.dev/path_provider_windows-2.3.0/
 realm=/Users/ltphong/.pub-cache/hosted/pub.dev/realm-20.0.1/
@@ -8,3 +11,6 @@ shared_preferences_foundation=/Users/ltphong/.pub-cache/hosted/pub.dev/shared_pr
 shared_preferences_linux=/Users/ltphong/.pub-cache/hosted/pub.dev/shared_preferences_linux-2.4.1/
 shared_preferences_web=/Users/ltphong/.pub-cache/hosted/pub.dev/shared_preferences_web-2.4.2/
 shared_preferences_windows=/Users/ltphong/.pub-cache/hosted/pub.dev/shared_preferences_windows-2.4.1/
+sqflite=/Users/ltphong/.pub-cache/hosted/pub.dev/sqflite-2.4.1/
+sqflite_android=/Users/ltphong/.pub-cache/hosted/pub.dev/sqflite_android-2.4.0/
+sqflite_darwin=/Users/ltphong/.pub-cache/hosted/pub.dev/sqflite_darwin-2.4.1+1/

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:phongngo.pokedex/constants/border_radiuses.dart';
 import 'package:phongngo.pokedex/constants/image_sizes.dart';
@@ -31,8 +32,9 @@ class PokemonCard extends StatelessWidget {
                 Expanded(
                   child: Row(
                     children: [
-                      Image.network(
-                        pokemon.imageUrl,
+                      CachedNetworkImage(
+                        cacheKey: pokemon.imageUrl,
+                        imageUrl: pokemon.imageUrl,
                         width: imageSize,
                         height: imageSize,
                       ),

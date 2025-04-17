@@ -266,14 +266,18 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/path_provider_foundation/path_provider_foundation.framework",
 				"${BUILT_PRODUCTS_DIR}/realm/realm.framework",
 				"${BUILT_PRODUCTS_DIR}/shared_preferences_foundation/shared_preferences_foundation.framework",
+				"${BUILT_PRODUCTS_DIR}/sqflite_darwin/sqflite_darwin.framework",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/realm/realm_dart.framework/realm_dart",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/path_provider_foundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/shared_preferences_foundation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/sqflite_darwin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/realm_dart.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
