@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:phongngo.pokedex/themes/sizes.dart';
+import 'package:phongngo.pokedex/constants/sizes.dart';
 
 const SizedBox horizontalSpaceXxs = SizedBox(width: xxs);
 const SizedBox horizontalSpaceXs = SizedBox(width: xs);

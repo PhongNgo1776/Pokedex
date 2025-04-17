@@ -183,7 +183,7 @@ class PokemonGenerationModel extends _PokemonGenerationModel
     register(_toEJson, _fromEJson);
     return const SchemaObject(ObjectType.realmObject, PokemonGenerationModel,
         'PokemonGenerationModel', [
-      SchemaProperty('name', RealmPropertyType.string, primaryKey: true),
+      SchemaProperty('name', RealmPropertyType.string),
       SchemaProperty('url', RealmPropertyType.string),
     ]);
   }();
@@ -269,7 +269,7 @@ class PokemonEffectEntryModel extends _PokemonEffectEntryModel
     register(_toEJson, _fromEJson);
     return const SchemaObject(ObjectType.realmObject, PokemonEffectEntryModel,
         'PokemonEffectEntryModel', [
-      SchemaProperty('effect', RealmPropertyType.string, primaryKey: true),
+      SchemaProperty('effect', RealmPropertyType.string),
       SchemaProperty('language', RealmPropertyType.object,
           optional: true, linkTarget: 'PokemonEffectEntryLanguageModel'),
       SchemaProperty('shortEffect', RealmPropertyType.string),
@@ -345,7 +345,7 @@ class PokemonEffectEntryLanguageModel extends _PokemonEffectEntryLanguageModel
     register(_toEJson, _fromEJson);
     return const SchemaObject(ObjectType.realmObject,
         PokemonEffectEntryLanguageModel, 'PokemonEffectEntryLanguageModel', [
-      SchemaProperty('name', RealmPropertyType.string, primaryKey: true),
+      SchemaProperty('name', RealmPropertyType.string),
       SchemaProperty('url', RealmPropertyType.string),
     ]);
   }();

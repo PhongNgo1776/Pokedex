@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:phongngo.pokedex/themes/border_radiuses.dart';
-import 'package:phongngo.pokedex/themes/offsets.dart';
-import 'package:phongngo.pokedex/themes/sizes.dart';
+import 'package:phongngo.pokedex/constants/border_radiuses.dart';
+import 'package:phongngo.pokedex/constants/offsets.dart';
+import 'package:phongngo.pokedex/constants/sizes.dart';
 
 class SearchBox extends StatefulWidget {
   final TextEditingController? searchTextEditingController;

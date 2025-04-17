@@ -1,6 +1,6 @@
-import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/models/pokemon_model.dart';
+import 'package:phongngo.pokedex/core/pokemons/data/models/pokemon_model.dart';
 
-abstract interface class IRemotePokemonsDataSource {
+abstract interface class IRemoteSearchPokemonsDataSource {
   Future<PokemonModel?> searchPokemon({required String idOrName});
   Future<List<PokemonModel>> getRandomPokemons();
 }

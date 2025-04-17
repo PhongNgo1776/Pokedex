@@ -1,12 +1,12 @@
+import 'package:phongngo.pokedex/core/pokemons/domain/entities/pokemon_entity.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/i_remote_search_pokemons_data_source.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/entities/pokemon_entity.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/i_pokemons_repository.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/i_search_pokemons_repository.dart';
 
-class PokemonsRepositoryImpl implements IPokemonsRepository {
-  final IRemotePokemonsDataSource _remotePokemonsDataSource;
+class SearchPokemonsRepositoryImpl implements ISearchPokemonsRepository {
+  final IRemoteSearchPokemonsDataSource _remotePokemonsDataSource;
 
-  PokemonsRepositoryImpl(
-      {required IRemotePokemonsDataSource remotePokemonsDataSource})
+  SearchPokemonsRepositoryImpl(
+      {required IRemoteSearchPokemonsDataSource remotePokemonsDataSource})
       : _remotePokemonsDataSource = remotePokemonsDataSource;
 
   @override

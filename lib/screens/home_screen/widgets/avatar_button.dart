@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:phongngo.pokedex/core/authentication/presentation/authentication_bloc.dart';
 import 'package:phongngo.pokedex/core/authentication/presentation/authentication_event.dart';
 import 'package:phongngo.pokedex/route_paths.dart';
-import 'package:phongngo.pokedex/themes/border_radiuses.dart';
-import 'package:phongngo.pokedex/themes/offsets.dart';
+import 'package:phongngo.pokedex/constants/border_radiuses.dart';
+import 'package:phongngo.pokedex/constants/offsets.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 
 class AvatarButton extends StatelessWidget {

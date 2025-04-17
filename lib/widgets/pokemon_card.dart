@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/entities/pokemon_entity.dart';
-import 'package:phongngo.pokedex/themes/border_radiuses.dart';
-import 'package:phongngo.pokedex/themes/image_sizes.dart';
-import 'package:phongngo.pokedex/themes/offsets.dart';
-import 'package:phongngo.pokedex/themes/spacings.dart';
+import 'package:phongngo.pokedex/constants/border_radiuses.dart';
+import 'package:phongngo.pokedex/constants/image_sizes.dart';
+import 'package:phongngo.pokedex/constants/offsets.dart';
+import 'package:phongngo.pokedex/constants/spacings.dart';
+import 'package:phongngo.pokedex/core/pokemons/domain/entities/pokemon_entity.dart';
 
-class PokemonItem extends StatelessWidget {
+class PokemonCard extends StatelessWidget {
   final PokemonEntity pokemon;
-  const PokemonItem({
+  final Function(bool isFavorite) onFavoriteToggle;
+  const PokemonCard({
     super.key,
     required this.pokemon,
+    required this.onFavoriteToggle,
   });
 
   @override
@@ -52,10 +54,10 @@ class PokemonItem extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.favorite),
-                  onPressed: () {
-                    // Handle favorite action
-                  },
+                  icon: Icon(pokemon.isFavorite
+                      ? Icons.favorite
+                      : Icons.favorite_border),
+                  onPressed: () => onFavoriteToggle(!pokemon.isFavorite),
                 ),
               ],
             ),

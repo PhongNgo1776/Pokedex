@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:phongngo.pokedex/constants/spacings.dart';
 import 'package:phongngo.pokedex/helpers/helpers_.dart';
 import 'package:phongngo.pokedex/route_paths.dart';
 import 'package:phongngo.pokedex/screens/home_screen/widgets/avatar_button.dart';
 import 'package:phongngo.pokedex/screens/home_screen/widgets/home_button.dart';
-import 'package:phongngo.pokedex/themes/spacings.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
               verticalSpaceBase,
               HomeButton(
                 title: 'My Pokemons',
-                onPressed: () => context.go(RoutePaths.myPokemons),
+                onPressed: () => context.go(RoutePaths.myPokedex),
               ),
             ],
           ),

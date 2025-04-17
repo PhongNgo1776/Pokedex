@@ -1,10 +1,7 @@
-import 'package:equatable/equatable.dart';
+import 'package:phongngo.pokedex/core/pokemons/presentation/pokemon_event.dart';
 
-abstract class SearchPokemonsScreenEvent extends Equatable {
+abstract class SearchPokemonsScreenEvent extends PokemonEvent {
   const SearchPokemonsScreenEvent();
-
-  @override
-  List<Object> get props => [];
 }
 
 class GetRandomPokemonsEvent extends SearchPokemonsScreenEvent {}

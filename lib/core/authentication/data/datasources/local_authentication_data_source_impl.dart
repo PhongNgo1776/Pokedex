@@ -22,6 +22,6 @@ class LocalAuthenticationLocalDatasourceImpl
 
   @override
   void saveUser(UserModel userModel) {
-    _realmDB.addModel(userModel);
+    _realmDB.addOrUpdateModel(userModel, userModel.id);
   }
 }

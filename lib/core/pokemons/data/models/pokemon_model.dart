@@ -14,14 +14,12 @@ class _PokemonModel {
 
 @RealmModel()
 class _PokemonGenerationModel {
-  @PrimaryKey()
   late String name;
   late String url;
 }
 
 @RealmModel()
 class _PokemonEffectEntryModel {
-  @PrimaryKey()
   late String effect;
   _PokemonEffectEntryLanguageModel? language;
   late String shortEffect;
@@ -29,7 +27,6 @@ class _PokemonEffectEntryModel {
 
 @RealmModel()
 class _PokemonEffectEntryLanguageModel {
-  @PrimaryKey()
   late String name;
   late String url;
 }

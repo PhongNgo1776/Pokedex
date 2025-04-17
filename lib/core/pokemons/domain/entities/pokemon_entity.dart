@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/models/pokemon_model.dart';
+import 'package:phongngo.pokedex/core/pokemons/data/models/pokemon_model.dart';
 
 class PokemonEntity implements Equatable {
   final int id;
@@ -7,6 +7,7 @@ class PokemonEntity implements Equatable {
   final String imageUrl;
   final PokemonGenerationEntity? generation;
   final List<PokemonEffectEntryEntity> effectEntries;
+  final bool isFavorite;
 
   const PokemonEntity({
     required this.id,
@@ -14,9 +15,11 @@ class PokemonEntity implements Equatable {
     required this.imageUrl,
     required this.generation,
     required this.effectEntries,
+    this.isFavorite = false,
   });
 
-  factory PokemonEntity.fromModel(PokemonModel model) {
+  factory PokemonEntity.fromModel(PokemonModel model,
+      {bool isFavorite = false}) {
     return PokemonEntity(
       id: model.id,
       name: model.name,
@@ -26,6 +29,21 @@ class PokemonEntity implements Equatable {
           : null,
       effectEntries: model.effectEntries
           .map((e) => PokemonEffectEntryEntity.fromModel(e))
+          .toList(),
+      isFavorite: isFavorite,
+    );
+  }
+
+  static PokemonModel toModel(PokemonEntity entity) {
+    return PokemonModel(
+      entity.id,
+      entity.name,
+      entity.imageUrl,
+      generation: entity.generation != null
+          ? PokemonGenerationEntity.toModel(entity.generation!)
+          : null,
+      effectEntries: entity.effectEntries
+          .map((e) => PokemonEffectEntryEntity.toModel(e))
           .toList(),
     );
   }
@@ -64,6 +82,13 @@ class PokemonGenerationEntity implements Equatable {
 
   @override
   bool? get stringify => true;
+
+  static PokemonGenerationModel toModel(PokemonGenerationEntity entity) {
+    return PokemonGenerationModel(
+      entity.name,
+      entity.url,
+    );
+  }
 }
 
 class PokemonEffectEntryEntity implements Equatable {
@@ -90,6 +115,16 @@ class PokemonEffectEntryEntity implements Equatable {
             : null,
         shortEffect: model.shortEffect);
   }
+
+  static PokemonEffectEntryModel toModel(PokemonEffectEntryEntity entity) {
+    return PokemonEffectEntryModel(
+      entity.effect,
+      entity.shortEffect,
+      language: entity.language != null
+          ? PokemonEffectEntryLanguageEntity.toModel(entity.language!)
+          : null,
+    );
+  }
 }
 
 class PokemonEffectEntryLanguageEntity implements Equatable {
@@ -114,4 +149,12 @@ class PokemonEffectEntryLanguageEntity implements Equatable {
 
   @override
   bool? get stringify => true;
+
+  static PokemonEffectEntryLanguageModel toModel(
+      PokemonEffectEntryLanguageEntity entity) {
+    return PokemonEffectEntryLanguageModel(
+      entity.name,
+      entity.url,
+    );
+  }
 }

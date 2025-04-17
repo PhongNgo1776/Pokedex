@@ -1,7 +1,7 @@
-import 'package:equatable/equatable.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/entities/pokemon_entity.dart';
+import 'package:phongngo.pokedex/core/pokemons/domain/entities/pokemon_entity.dart';
+import 'package:phongngo.pokedex/core/pokemons/presentation/pokemon_state.dart';
 
-abstract class SearchPokemonState implements Equatable {}
+abstract class SearchPokemonState extends PokemonState {}
 
 class SearchPokemonLoaded extends SearchPokemonState {
   final PokemonEntity pokemon;
@@ -24,20 +24,20 @@ class SearchPokemonLoaded extends SearchPokemonState {
 }
 
 class RandomPokemonsLoaded extends SearchPokemonState {
-  final List<PokemonEntity> pokemons;
+  final List<PokemonEntity> pokedex;
 
-  RandomPokemonsLoaded({required this.pokemons});
+  RandomPokemonsLoaded({required this.pokedex});
 
   RandomPokemonsLoaded copyWith({
-    List<PokemonEntity>? pokemons,
+    List<PokemonEntity>? pokedex,
   }) {
     return RandomPokemonsLoaded(
-      pokemons: pokemons ?? this.pokemons,
+      pokedex: pokedex ?? this.pokedex,
     );
   }
 
   @override
-  List<Object?> get props => [pokemons];
+  List<Object?> get props => [pokedex];
 
   @override
   bool? get stringify => true;
@@ -76,6 +76,26 @@ class SearchPokemonError extends SearchPokemonState {
 
   @override
   List<Object?> get props => [error];
+
+  @override
+  bool? get stringify => true;
+}
+
+class SavePokemonsLoaded extends SearchPokemonState {
+  final PokemonEntity pokemon;
+
+  SavePokemonsLoaded({required this.pokemon});
+
+  SavePokemonsLoaded copyWith({
+    PokemonEntity? pokemon,
+  }) {
+    return SavePokemonsLoaded(
+      pokemon: pokemon ?? this.pokemon,
+    );
+  }
+
+  @override
+  List<Object?> get props => [pokemon];
 
   @override
   bool? get stringify => true;

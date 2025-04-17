@@ -3,11 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phongngo.pokedex/core/authentication/presentation/authentication_bloc.dart';
+import 'package:phongngo.pokedex/core/pokemons/domain/delete_pokemon_use_case.dart';
+import 'package:phongngo.pokedex/core/pokemons/domain/save_pokemon_use_case.dart';
 import 'package:phongngo.pokedex/route_paths.dart';
 import 'package:phongngo.pokedex/screens/home_screen/home_screen.dart';
 import 'package:phongngo.pokedex/screens/login_screen/domain/login_use_case.dart';
 import 'package:phongngo.pokedex/screens/login_screen/presentation/login_bloc.dart';
 import 'package:phongngo.pokedex/screens/login_screen/presentation/login_screen.dart';
+import 'package:phongngo.pokedex/screens/my_pokedex_screen/domain/get_my_pokedex_use_case.dart';
+import 'package:phongngo.pokedex/screens/my_pokedex_screen/presentation/my_pokedex_bloc.dart';
+import 'package:phongngo.pokedex/screens/my_pokedex_screen/presentation/my_pokedex_screen.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/get_random_pokemon_use_case.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/search_pokemons_use_case.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/search_pokemons_bloc.dart';
@@ -32,11 +37,24 @@ final GoRouter router = GoRouter(
             builder: (BuildContext context, GoRouterState state) {
               return BlocProvider(
                   create: (context) => SearchPokemonsBloc(
+                      deletePokemonUseCase:
+                          GetIt.instance<DeletePokemonUseCase>(),
+                      savePokemonsUseCase: GetIt.instance<SavePokemonUseCase>(),
                       searchPokemonsUseCase:
                           GetIt.instance<SearchPokemonUseCase>(),
                       getRandomPokemonsUseCase:
                           GetIt.instance<GetRandomPokemonsUseCase>()),
                   child: const SearchPokemonsScreen());
+            },
+          ),
+          GoRoute(
+            path: RoutePaths.myPokedex,
+            builder: (BuildContext context, GoRouterState state) {
+              return BlocProvider(
+                  create: (context) => MyPokedexBloc(
+                      getMyPokedexUseCase:
+                          GetIt.instance<GetMyPokedexUseCase>()),
+                  child: const MyPokedexScreen());
             },
           ),
         ],

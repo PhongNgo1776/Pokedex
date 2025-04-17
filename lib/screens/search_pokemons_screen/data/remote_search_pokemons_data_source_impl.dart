@@ -3,15 +3,16 @@ import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:phongngo.pokedex/constants/network_constants.dart';
+import 'package:phongngo.pokedex/core/pokemons/data/models/pokemon_model.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/i_remote_search_pokemons_data_source.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/models/pokemon_model.dart';
 
 const maxPokemonCount = 300;
 
-class RemotePokemonsDataSourceImpl implements IRemotePokemonsDataSource {
+class RemoteSearchPokemonsDataSourceImpl
+    implements IRemoteSearchPokemonsDataSource {
   final Dio dio;
 
-  RemotePokemonsDataSourceImpl({required this.dio});
+  RemoteSearchPokemonsDataSourceImpl({required this.dio});
 
   @override
   Future<PokemonModel?> searchPokemon({required String idOrName}) async {

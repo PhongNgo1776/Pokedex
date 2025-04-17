@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:phongngo.pokedex/themes/sizes.dart';
+import 'package:phongngo.pokedex/constants/sizes.dart';
 
 const EdgeInsets allInsetsZero = EdgeInsets.all(zero);
 const EdgeInsets allInsetsXxs = EdgeInsets.all(xxs);

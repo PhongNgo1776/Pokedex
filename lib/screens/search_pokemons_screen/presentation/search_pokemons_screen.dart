@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:phongngo.pokedex/constants/offsets.dart';
+import 'package:phongngo.pokedex/constants/spacings.dart';
+import 'package:phongngo.pokedex/core/pokemons/presentation/pokemon_event.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/search_pokemons_bloc.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/search_pokemons_event.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/search_pokemons_state.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/widgets/pokemon_item.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/widgets/search_box.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/widgets/surprise_button.dart';
-import 'package:phongngo.pokedex/themes/offsets.dart';
-import 'package:phongngo.pokedex/themes/spacings.dart';
+import 'package:phongngo.pokedex/widgets/pokemon_card.dart';
 
 /// Stateful widget to fetch and then display pokedex content.
 class SearchPokemonsScreen extends StatefulWidget {
@@ -51,18 +52,33 @@ class _SearchPokemonsScreenState extends State<SearchPokemonsScreen> {
                     if (state is SearchPokemonLoading) {
                       return const Center(child: CircularProgressIndicator());
                     } else if (state is SearchPokemonLoaded) {
-                      return PokemonItem(pokemon: state.pokemon);
+                      return PokemonCard(
+                        pokemon: state.pokemon,
+                        onFavoriteToggle: (isFavorite) =>
+                            context.read<SearchPokemonsBloc>().add(
+                                  ToggleFavoriteEvent(
+                                    pokemon: state.pokemon,
+                                    isFavorite: isFavorite,
+                                  ),
+                                ),
+                      );
                     } else if (state is RandomPokemonsLoaded) {
                       return Scrollbar(
                         child: ListView.builder(
                             padding: horizontalInsetsBase,
-                            itemBuilder: (_, index) {
-                              return PokemonItem(
-                                pokemon: state.pokemons[index],
-                              );
-                            },
+                            itemBuilder: (_, index) => PokemonCard(
+                                  key: ValueKey(state.pokedex[index].id),
+                                  pokemon: state.pokedex[index],
+                                  onFavoriteToggle: (isFavorite) =>
+                                      context.read<SearchPokemonsBloc>().add(
+                                            ToggleFavoriteEvent(
+                                              pokemon: state.pokedex[index],
+                                              isFavorite: isFavorite,
+                                            ),
+                                          ),
+                                ),
                             shrinkWrap: true,
-                            itemCount: state.pokemons.length),
+                            itemCount: state.pokedex.length),
                       );
                     } else if (state is SearchPokemonError) {
                       return Text(state.error,

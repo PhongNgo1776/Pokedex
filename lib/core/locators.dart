@@ -9,13 +9,20 @@ import 'package:phongngo.pokedex/core/authentication/data/repositories/authentic
 import 'package:phongngo.pokedex/core/authentication/domain/i_authentication_repository.dart';
 import 'package:phongngo.pokedex/core/authentication/domain/load_user_use_case.dart';
 import 'package:phongngo.pokedex/core/authentication/domain/logout_use_case.dart';
+import 'package:phongngo.pokedex/core/pokemons/data/i_my_pokedex_local_datasource.dart';
+import 'package:phongngo.pokedex/core/pokemons/data/my_pokedex_local_datasource_impl.dart';
+import 'package:phongngo.pokedex/core/pokemons/data/my_pokedex_repository_impl.dart';
+import 'package:phongngo.pokedex/core/pokemons/domain/delete_pokemon_use_case.dart';
+import 'package:phongngo.pokedex/core/pokemons/domain/i_my_pokedex_repository.dart';
+import 'package:phongngo.pokedex/core/pokemons/domain/save_pokemon_use_case.dart';
 import 'package:phongngo.pokedex/core/realm_db.dart';
 import 'package:phongngo.pokedex/screens/login_screen/domain/login_use_case.dart';
+import 'package:phongngo.pokedex/screens/my_pokedex_screen/domain/get_my_pokedex_use_case.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/i_remote_search_pokemons_data_source.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/pokemons_repository_impl.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/remote_pokemons_data_source_impl.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/remote_search_pokemons_data_source_impl.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/search_pokemons_repository_impl.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/get_random_pokemon_use_case.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/i_pokemons_repository.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/i_search_pokemons_repository.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/search_pokemons_use_case.dart';
 
 class Locators {
@@ -52,14 +59,25 @@ class Locators {
     locator.registerLazySingleton<LogOutUseCase>(
         () => LogOutUseCase(locator<IAuthenticationRepository>()));
 
-    // Registering searh_pokemons_screen dependencies
-    locator.registerLazySingleton<IRemotePokemonsDataSource>(
-        () => RemotePokemonsDataSourceImpl(dio: locator<Dio>()));
-    locator.registerLazySingleton<IPokemonsRepository>(
-        () => PokemonsRepositoryImpl(remotePokemonsDataSource: locator()));
+    // Registering pokemon dependencies
+    locator.registerLazySingleton<IMyPokedexLocalDatasource>(
+        () => MyPokedexLocalDatasourceImpl(realmDB: locator<RealmDB>()));
+    locator.registerLazySingleton<IRemoteSearchPokemonsDataSource>(
+        () => RemoteSearchPokemonsDataSourceImpl(dio: locator<Dio>()));
+    locator.registerLazySingleton<IMyPokedexRepository>(() =>
+        MyPokedexRepositoryImpl(
+            myPokedexLocalDatasource: locator<IMyPokedexLocalDatasource>()));
+    locator.registerLazySingleton<ISearchPokemonsRepository>(() =>
+        SearchPokemonsRepositoryImpl(remotePokemonsDataSource: locator()));
     locator.registerLazySingleton<SearchPokemonUseCase>(
         () => SearchPokemonUseCase(pokemonsRepository: locator()));
     locator.registerLazySingleton<GetRandomPokemonsUseCase>(
         () => GetRandomPokemonsUseCase(pokemonsRepository: locator()));
+    locator.registerLazySingleton<SavePokemonUseCase>(
+        () => SavePokemonUseCase(pokemonsRepository: locator()));
+    locator.registerLazySingleton<DeletePokemonUseCase>(
+        () => DeletePokemonUseCase(pokemonsRepository: locator()));
+    locator.registerLazySingleton<GetMyPokedexUseCase>(
+        () => GetMyPokedexUseCase(myPokedexRepository: locator()));
   }
 }
