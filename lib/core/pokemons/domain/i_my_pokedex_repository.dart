@@ -4,4 +4,5 @@ abstract interface class IMyPokedexRepository {
   void savePokemon(PokemonEntity pokemon);
   void deletePokemon(int id);
   List<PokemonEntity> getMyPokedex();
+  void updatePokedex(List<PokemonEntity> pokedex);
 }

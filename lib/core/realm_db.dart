@@ -45,8 +45,8 @@ class RealmDB {
   }
 
   void updateAll<T extends RealmObject>(List<T> models) {
-    realm.write(() => realm.deleteAll());
-    realm.write(() => realm.addAll(models));
+    realm.write(() => realm.deleteAll<T>());
+    realm.write(() => realm.addAll<T>(models));
   }
 
   void deleteAllModels<T extends RealmObject>() {

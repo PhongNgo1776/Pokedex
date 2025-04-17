@@ -4,4 +4,5 @@ abstract interface class IMyPokedexLocalDatasource {
   void savePokemon(PokemonModel userModel);
   List<PokemonModel> getPokedex();
   void deletePokemon(int id);
+  void updatePokedex(List<PokemonModel> pokedex);
 }

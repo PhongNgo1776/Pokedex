@@ -26,4 +26,10 @@ class MyPokedexRepositoryImpl implements IMyPokedexRepository {
         .map((model) => PokemonEntity.fromModel(model, isFavorite: true))
         .toList();
   }
+
+  @override
+  void updatePokedex(List<PokemonEntity> pokedex) {
+    _myPokedexLocalDatasource.updatePokedex(
+        pokedex.map((pokemon) => PokemonEntity.toModel(pokemon)).toList());
+  }
 }

@@ -2,20 +2,20 @@ import 'package:phongngo.pokedex/core/pokemons/domain/entities/pokemon_entity.da
 import 'package:phongngo.pokedex/core/pokemons/presentation/pokemon_state.dart';
 
 class MyPokedexState extends PokemonState {
-  final List<PokemonEntity> pokemons;
+  final List<PokemonEntity> pokedex;
 
-  MyPokedexState({required this.pokemons});
+  MyPokedexState({required this.pokedex});
 
   MyPokedexState copyWith({
-    List<PokemonEntity>? pokemons,
+    List<PokemonEntity>? pokedex,
   }) {
     return MyPokedexState(
-      pokemons: pokemons ?? this.pokemons,
+      pokedex: pokedex ?? this.pokedex,
     );
   }
 
   @override
-  List<Object?> get props => [pokemons];
+  List<Object?> get props => [pokedex];
 
   @override
   bool? get stringify => true;

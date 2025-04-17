@@ -18,6 +18,7 @@ import 'package:phongngo.pokedex/core/pokemons/domain/save_pokemon_use_case.dart
 import 'package:phongngo.pokedex/core/realm_db.dart';
 import 'package:phongngo.pokedex/screens/login_screen/domain/login_use_case.dart';
 import 'package:phongngo.pokedex/screens/my_pokedex_screen/domain/get_my_pokedex_use_case.dart';
+import 'package:phongngo.pokedex/screens/my_pokedex_screen/domain/update_my_pokedex_use_case.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/i_remote_search_pokemons_data_source.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/remote_search_pokemons_data_source_impl.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/data/search_pokemons_repository_impl.dart';
@@ -79,5 +80,7 @@ class Locators {
         () => DeletePokemonUseCase(pokemonsRepository: locator()));
     locator.registerLazySingleton<GetMyPokedexUseCase>(
         () => GetMyPokedexUseCase(myPokedexRepository: locator()));
+    locator.registerLazySingleton<UpdateMyPokedexUseCase>(
+        () => UpdateMyPokedexUseCase(myPokedexRepository: locator()));
   }
 }

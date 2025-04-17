@@ -11,6 +11,7 @@ import 'package:phongngo.pokedex/screens/login_screen/domain/login_use_case.dart
 import 'package:phongngo.pokedex/screens/login_screen/presentation/login_bloc.dart';
 import 'package:phongngo.pokedex/screens/login_screen/presentation/login_screen.dart';
 import 'package:phongngo.pokedex/screens/my_pokedex_screen/domain/get_my_pokedex_use_case.dart';
+import 'package:phongngo.pokedex/screens/my_pokedex_screen/domain/update_my_pokedex_use_case.dart';
 import 'package:phongngo.pokedex/screens/my_pokedex_screen/presentation/my_pokedex_bloc.dart';
 import 'package:phongngo.pokedex/screens/my_pokedex_screen/presentation/my_pokedex_screen.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/get_random_pokemon_use_case.dart';
@@ -52,6 +53,8 @@ final GoRouter router = GoRouter(
             builder: (BuildContext context, GoRouterState state) {
               return BlocProvider(
                   create: (context) => MyPokedexBloc(
+                      updateMyPokedexUseCase:
+                          GetIt.instance<UpdateMyPokedexUseCase>(),
                       getMyPokedexUseCase:
                           GetIt.instance<GetMyPokedexUseCase>()),
                   child: const MyPokedexScreen());

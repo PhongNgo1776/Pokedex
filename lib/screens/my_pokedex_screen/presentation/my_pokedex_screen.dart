@@ -4,6 +4,7 @@ import 'package:phongngo.pokedex/constants/offsets.dart';
 import 'package:phongngo.pokedex/constants/spacings.dart';
 import 'package:phongngo.pokedex/core/pokemons/presentation/pokemon_event.dart';
 import 'package:phongngo.pokedex/screens/my_pokedex_screen/presentation/my_pokedex_bloc.dart';
+import 'package:phongngo.pokedex/screens/my_pokedex_screen/presentation/my_pokedex_event.dart';
 import 'package:phongngo.pokedex/screens/my_pokedex_screen/presentation/my_pokedex_state.dart';
 import 'package:phongngo.pokedex/widgets/pokemon_card.dart';
 
@@ -29,24 +30,36 @@ class MyPokedexScreen extends StatelessWidget {
               Expanded(
                 child: BlocBuilder<MyPokedexBloc, MyPokedexState>(
                   builder: (context, state) {
-                    return state.pokemons.isNotEmpty
+                    return state.pokedex.isNotEmpty
                         ? Scrollbar(
-                            child: ListView.builder(
-                                padding: horizontalInsetsBase,
-                                itemBuilder: (_, index) => PokemonCard(
-                                      key: ValueKey(state.pokemons[index].id),
-                                      pokemon: state.pokemons[index],
-                                      onFavoriteToggle: (isFavorite) => context
-                                          .read<MyPokedexBloc>()
-                                          .add(
-                                            ToggleFavoriteEvent(
-                                              pokemon: state.pokemons[index],
-                                              isFavorite: false,
-                                            ),
+                            child: ReorderableListView.builder(
+                              padding: horizontalInsetsBase,
+                              itemBuilder: (_, index) => PokemonCard(
+                                key: Key('$index'),
+                                pokemon: state.pokedex[index],
+                                onFavoriteToggle: (isFavorite) =>
+                                    context.read<MyPokedexBloc>().add(
+                                          ToggleFavoriteEvent(
+                                            pokemon: state.pokedex[index],
+                                            isFavorite: false,
                                           ),
-                                    ),
-                                shrinkWrap: true,
-                                itemCount: state.pokemons.length),
+                                        ),
+                              ),
+                              shrinkWrap: true,
+                              itemCount: state.pokedex.length,
+                              onReorder: (oldIndex, newIndex) {
+                                if (oldIndex < newIndex) {
+                                  newIndex -= 1;
+                                }
+
+                                context
+                                    .read<MyPokedexBloc>()
+                                    .add(ReOrderPokedexEvent(
+                                      oldIndex: oldIndex,
+                                      newIndex: newIndex,
+                                    ));
+                              },
+                            ),
                           )
                         : Center(
                             child: Text('No pokemons found',

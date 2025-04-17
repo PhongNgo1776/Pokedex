@@ -24,4 +24,9 @@ class MyPokedexLocalDatasourceImpl implements IMyPokedexLocalDatasource {
     final saveModels = _realmDB.getAllModels<PokemonModel>();
     return saveModels;
   }
+
+  @override
+  void updatePokedex(List<PokemonModel> pokedex) {
+    _realmDB.updateAll<PokemonModel>(pokedex);
+  }
 }
