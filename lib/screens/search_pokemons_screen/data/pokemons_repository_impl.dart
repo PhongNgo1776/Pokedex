@@ -10,9 +10,9 @@ class PokemonsRepositoryImpl implements IPokemonsRepository {
       : _remotePokemonsDataSource = remotePokemonsDataSource;
 
   @override
-  Future<List<PokemonEntity>> searchPokemons({String? id, String? name}) async {
+  Future<List<PokemonEntity>> searchPokemons({required String idOrName}) async {
     final response =
-        await _remotePokemonsDataSource.searchPokemons(id: id, name: name);
+        await _remotePokemonsDataSource.searchPokemons(idOrName: idOrName);
     if (response.isNotEmpty) {
       // Parse the response and convert it to a list of PokemonEntity
       // For now, returning an empty list

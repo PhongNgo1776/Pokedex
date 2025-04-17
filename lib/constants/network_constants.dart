@@ -1,1 +1,1 @@
-const baseUrl = 'https://pokeapi.co/api/v2/';
+const baseUrl = 'https://pokeapi.co/api/v2';

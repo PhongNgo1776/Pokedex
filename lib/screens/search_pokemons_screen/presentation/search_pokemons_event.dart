@@ -10,14 +10,12 @@ abstract class SearchPokemonsScreenEvent extends Equatable {
 class GetRandomPokemonsEvent extends SearchPokemonsScreenEvent {}
 
 class SearchPokemonsEvent extends SearchPokemonsScreenEvent {
-  final String id;
-  final String name;
+  final String idOrName;
 
   const SearchPokemonsEvent({
-    required this.id,
-    required this.name,
+    required this.idOrName,
   });
 
   @override
-  List<Object> get props => [id, name];
+  List<Object> get props => [idOrName];
 }

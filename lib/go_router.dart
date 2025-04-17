@@ -9,7 +9,7 @@ import 'package:phongngo.pokedex/screens/login_screen/domain/login_use_case.dart
 import 'package:phongngo.pokedex/screens/login_screen/presentation/login_bloc.dart';
 import 'package:phongngo.pokedex/screens/login_screen/presentation/login_screen.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/domain/search_pokemons_use_case.dart';
-import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/search_pokemons_provider.dart';
+import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/search_pokemons_bloc.dart';
 import 'package:phongngo.pokedex/screens/search_pokemons_screen/presentation/search_pokemons_screen.dart';
 
 final GoRouter router = GoRouter(
